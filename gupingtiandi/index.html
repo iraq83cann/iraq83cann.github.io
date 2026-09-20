@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="股评天地提供专业的股市行情分析、投资策略分享、财经资讯解读及个股点评。致力于帮助投资者掌握市场动态，理性决策。">
+    <meta name="keywords" content="股评天地,股票分析,股市行情,投资策略,财经资讯">
+    <title>股评天地-专业股市行情分析与投资策略分享平台</title>
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --accent-color: #c05621;
+            --success-color: #2f855a;
+            --danger-color: #c53030;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-main: #2d3748;
+            --text-secondary: #718096;
+            --border-color: #e2e8f0;
+            --nav-height: 60px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* 布局容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 顶部导航 */
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            height: var(--nav-height);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-color);
+        }
+
+        .nav-actions .btn {
+            padding: 6px 16px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-login {
+            border: 1px solid var(--border-color);
+            margin-right: 10px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #2c5282;
+        }
+
+        /* Hero 区域 */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #2a4365 100%);
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        .hero-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 24px;
+            max-width: 600px;
+        }
+
+        .search-box {
+            background: white;
+            padding: 8px;
+            border-radius: 8px;
+            display: flex;
+            max-width: 500px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            padding: 8px 12px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-box button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .market-status {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .market-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .market-title {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .market-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+        }
+
+        .market-change {
+            font-size: 0.9rem;
+        }
+
+        .up { color: #68d391; }
+        .down { color: #fc8181; }
+
+        /* 主体内容网格 */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 240px 1fr 280px;
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        /* 侧边栏样式 */
+        .sidebar-section {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+            display: inline-block;
+        }
+
+        .hot-list li {
+            margin-bottom: 12px;
+        }
+
+        .hot-list a {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .hot-list a:hover {
+            color: var(--primary-color);
+        }
+
+        .hot-list .rank {
+            background: #edf2f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        /* 文章列表 */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .section-header a {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .article-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-img {
+            width: 100%;
+            height: 180px;
+            background-color: #cbd5e0;
+            object-fit: cover;
+        }
+
+        .article-content {
+            padding: 20px;
+        }
+
+        .article-tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            background-color: #ebf8ff;
+            color: #2b6cb0;
+        }
+
+        .tag.strategy { background-color: #f0fff4; color: #276749; }
+        .tag.news { background-color: #fffaf0; color: #c05621; }
+
+        .article-title {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .article-title a:hover {
+            color: var(--accent-color);
+        }
+
+        .article-excerpt {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #a0aec0;
+            border-top: 1px solid #edf2f7;
+            padding-top: 12px;
+        }
+
+        /* 数据看板 */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        /* 策略专栏 */
+        .strategy-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .strategy-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .strategy-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: var(--accent-color);
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+        }
+
+        .strategy-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .strategy-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .strategy-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #718096;
+        }
+
+        /* 页脚 */
+        footer {
+            background-color: var(--primary-color);
+            color: #cbd5e0;
+            padding: 60px 0 20px;
+            margin-top: 60px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .footer-col h4 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+
+        /* 响应式 */
+        @media (max-width: 992px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            .sidebar-left {
+                display: none;
+            }
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .search-box {
+                margin: 0 auto;
+            }
+            .market-status {
+                flex-direction: row;
+                justify-content: center;
+            }
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links {
+                display: none;
+            }
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-text h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部导航 -->
+    <header>
+        <div class="container nav-inner">
+            <a href="#" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-color)"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
+                股评<span>天地</span>
+            </a>
+            <nav class="nav-links">
+                <a href="#" class="active">首页</a>
+                <a href="#">大盘分析</a>
+                <a href="#">个股推荐</a>
+                <a href="#">投资策略</a>
+                <a href="#">财经资讯</a>
+                <a href="#">名家观点</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="btn btn-login">登录</button>
+                <button class="btn btn-primary">注册</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero 区域：搜索与市场概况 -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>洞悉市场趋势，把握投资先机</h1>
+                <p>汇聚资深分析师与市场精英，为您提供精准的行情解读与科学的资产配置方案。</p>
+                <div class="search-box">
+                    <input type="text" placeholder="输入股票代码或名称（如：贵州茅台）...">
+                    <button>搜索</button>
+                </div>
+            </div>
+            <div class="market-status">
+                <div class="market-card">
+                    <div class="market-title">上证指数</div>
+                    <div class="market-price">3,058.24</div>
+                    <div class="market-change up">+0.85%</div>
+                </div>
+                <div class="market-card">
+                    <div class="market-title">深证成指</div>
+                    <div class="market-price">9,842.15</div>
+                    <div class="market-change down">-0.32%</div>
+                </div>
+                <div class="market-card">
+                    <div class="market-title">创业板指</div>
+                    <div class="market-price">1,965.08</div>
+                    <div class="market-change up">+1.12%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 数据看板 -->
+    <section class="container" style="margin-bottom: 40px;">
+        <div class="dashboard-grid">
+            <div class="stat-card">
+                <div class="stat-label">今日新增文章</div>
+                <div class="stat-value">128</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">累计专家库</div>
+                <div class="stat-value">3,560</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">活跃用户</div>
+                <div class="stat-value">89,420</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">今日热议板块</div>
+                <div class="stat-value">新能源</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 主体内容区 -->
+    <div class="container main-grid">
+        
+        <!-- 左侧边栏：导航与分类 -->
+        <aside class="sidebar-left">
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">市场分类</h3>
+                <ul class="hot-list">
+                    <li><a href="#"><span>主板市场</span><span class="rank">Top</span></a></li>
+                    <li><a href="#"><span>创业板</span></a></li>
+                    <li><a href="#"><span>科创板</span></a></li>
+                    <li><a href="#"><span>港股通</span></a></li>
+                    <li><a href="#"><span>美股市场</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">热门板块</h3>
+                <ul class="hot-list">
+                    <li><a href="#">人工智能 (AI)</a></li>
+                    <li><a href="#">半导体芯片</a></li>
+                    <li><a href="#">生物医药</a></li>
+                    <li><a href="#">新能源车</a></li>
+                    <li><a href="#">消费电子</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- 中间：核心文章流 -->
+        <main>
+            <!-- 头条推荐 -->
+            <section class="section-header">
+                <h2>今日头条</h2>
+                <a href="#">查看更多 &rarr;</a>
+            </section>
+            
+            <article class="article-card">
+                <img src="https://picsum.photos/seed/finance1/800/400" alt="股市分析" class="article-img">
+                <div class="article-content">
+                    <div class="article-tags">
+                        <span class="tag strategy">深度策略</span>
+                        <span class="tag news">市场动态</span>
+                    </div>
+                    <h3 class="article-title"><a href="#">震荡市中的结构性机会：如何布局2024年下半年行情？</a></h3>
+                    <p class="article-excerpt">当前市场处于磨底阶段，增量资金入场迹象明显。本文将从宏观经济周期、行业景气度及资金流向三个维度，为您深度解析下半年的投资主线。</p>
+                    <div class="article-meta">
+                        <span>作者：资深分析师 张伟</span>
+                        <span>阅读：12,450 | 评论：328</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 策略专栏 -->
+            <section class="section-header" style="margin-top: 40px;">
+                <h2>实战策略专栏</h2>
+                <a href="#">更多策略 &rarr;</a>
+            </section>
+
+            <div class="strategy-list">
+                <div class="strategy-card">
+                    <h3><a href="#">短线交易技巧：MACD金叉与背离的实战运用</a></h3>
+                    <p>掌握MACD指标的顶底背离信号，提高短线胜率，规避追高风险。</p>
+                    <div class="strategy-footer">
+                        <span>技术分析</span>
+                        <span>2023-10-24</span>
+                    </div>
+                </div>
+                <div class="strategy-card">
+                    <h3><a href="#">价值投资：如何寻找“戴维斯双击”的优质标的</a></h3>
+                    <p>深入财报，挖掘业绩增长确定性强且估值处于低位的成长股。</p>
+                    <div class="strategy-footer">
+                        <span>基本面分析</span>
+                        <span>2023-10-23</span>
+                    </div>
+                </div>
+                <div class="strategy-card">
+                    <h3><a href="#">风险控制：仓位管理与止损纪律的重要性</a></h3>
+                    <p>不把鸡蛋放在同一个篮子里，建立科学的资金管理体系。</p>
+                    <div class="strategy-footer">
+                        <span>风控指南</span>
+                        <span>2023-10-22</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 最新资讯 -->
+            <section class="section-header" style="margin-top: 40px;">
+                <h2>最新财经资讯</h2>
+                <a href="#">查看更多 &rarr;</a>
+            </section>
+
+            <article class="article-card" style="display: flex; flex-direction: column;">
+                <div class="article-content">
+                    <div class="article-tags">
+                        <span class="tag news">宏观政策</span>
+                    </div>
+                    <h3 class="article-title"><a href="#">央行最新货币政策报告解读：流动性保持合理充裕</a></h3>
+                    <div class="article-meta">
+                        <span>来源：证券时报</span>
+                        <span>15分钟前</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="article-card" style="display: flex; flex-direction: column;">
+                <div class="article-content">
+                    <div class="article-tags">
+                        <span class="tag news">行业新闻</span>
+                    </div>
+                    <h3 class="article-title"><a href="#">多只新能源ETF资金持续净流入，机构看好长期成长空间</a></h3>
+                    <div class="article-meta">
+                        <span>来源：第一财经</span>
+                        <span>1小时前</span>
+                    </div>
+                </div>
+            </article>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-login" style="background: #edf2f7; color: var(--text-main);">加载更多文章</button>
+            </div>
+        </main>
+
+        <!-- 右侧边栏：名家与工具 -->
+        <aside class="sidebar-right">
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">金牌分析师</h3>
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <img src="https://picsum.photos/seed/avatar1/50/50" alt="头像" style="border-radius: 50%;">
+                        <div>
+                            <div style="font-weight: 600; font-size: 0.9rem;">李明哲</div>
+                            <div style="font-size: 0.8rem; color: #718096;">首席策略官</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <img src="https://picsum.photos/seed/avatar2/50/50" alt="头像" style="border-radius: 50%;">
+                        <div>
+                            <div style="font-weight: 600; font-size: 0.9rem;">王芳</div>
+                            <div style="font-size: 0.8rem; color: #718096;">资深市场研究员</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <img src="https://picsum.photos/seed/avatar3/50/50" alt="头像" style="border-radius: 50%;">
+                        <div>
+                            <div style="font-weight: 600; font-size: 0.9rem;">陈志强</div>
+                            <div style="font-size: 0.8rem; color: #718096;">价值投资专家</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" style="width: 100%; margin-top: 15px;">查看全部专家</button>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">常用工具</h3>
+                <ul class="hot-list">
+                    <li><a href="#">实时行情查询</a></li>
+                    <li><a href="#">F10资料下载</a></li>
+                    <li><a href="#">筹码分布图</a></li>
+                    <li><a href="#">资金流向监测</a></li>
+                    <li><a href="#">K线形态识别</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section" style="background: #ebf8ff; border-color: #bee3f8;">
+                <h3 class="sidebar-title" style="border-color: #4299e1; color: #2c5282;">风险提示</h3>
+                <p style="font-size: 0.85rem; color: #2c5282; margin-bottom: 10px;">
+                    股市有风险，投资需谨慎。本网站所有内容仅供参考，不构成具体投资建议。
+                </p>
+                <a href="#" style="font-size: 0.85rem; color: #2c5282; text-decoration: underline;">了解风险详情</a>
+            </div>
+        </aside>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>股评天地</h3>
+                    <p style="font-size: 0.9rem; line-height: 1.6; opacity: 0.8;">
+                        致力于为投资者提供专业、客观、及时的股市分析服务。我们汇聚行业精英，打破信息壁垒，助您在复杂的市场中稳健前行。
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>关于我们</h4>
+                    <ul>
+                        <li><a href="#">公司简介</a></li>
+                        <li><a href="#">服务条款</a></li>
+                        <li><a href="#">隐私政策</a></li>
+                        <li><a href="#">加入我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>内容栏目</h4>
+                    <ul>
+                        <li><a href="#">大盘分析</a></li>
+                        <li><a href="#">个股点评</a></li>
+                        <li><a href="#">投资策略</a></li>
+                        <li><a href="#">名家专栏</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>联系方式</h4>
+                    <ul>
+                        <li>客服热线：400-123-4567</li>
+                        <li>商务合作：bd@gupian-tiandi.com</li>
+                        <li>办公地址：北京市朝阳区金融中心A座</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 股评天地 版权所有 | 京ICP备12345678号
+            </div>
+        </div>
+    </footer>
+
+</body>
+                  </html>
