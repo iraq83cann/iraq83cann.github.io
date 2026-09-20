@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="解剖女人 - 人体解剖学、女性生理结构、生殖系统健康与解剖图谱的专业科普网站。提供女性骨骼、肌肉、器官的详细解剖图解及医学知识。">
+    <meta name="keywords" content="解剖女人, 女性解剖, 人体解剖图, 女性生理结构, 生殖系统解剖, 解剖学">
+    <title>解剖女人-女性人体结构解析与健康科普</title>
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-secondary: #666666;
+            --border-color: #e1e4e8;
+            --spacing-unit: 1rem;
+            --container-width: 1200px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg-color);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-inner {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 var(--spacing-unit);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            font-weight: 500;
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1.2rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-outline {
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1a252f;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        /* Main Layout */
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 3rem 1rem;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        /* Content Cards */
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            display: inline-block;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .card-img-wrapper {
+            width: 100%;
+            height: 200px;
+            background-color: #eee;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            background-color: #e8f4fd;
+            color: #3498db;
+            border-radius: 20px;
+            margin-bottom: 0.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        /* Sidebar */
+        .sidebar-widget {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-widget h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 0.8rem;
+        }
+
+        .list-group li {
+            margin-bottom: 0.8rem;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 0.8rem;
+        }
+
+        .list-group li:last-child {
+            border-bottom: none;
+        }
+
+        .list-group a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .list-group a:hover {
+            color: var(--accent-color);
+        }
+
+        .list-group span {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        /* Anatomy Detail Grid */
+        .anatomy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .anatomy-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .anatomy-item img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .anatomy-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .anatomy-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 1.5rem 1rem 1rem;
+            color: white;
+        }
+
+        .anatomy-overlay h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .anatomy-overlay p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Health Info Section */
+        .health-section {
+            background-color: #fff;
+            padding: 3rem 1rem;
+            margin-top: 3rem;
+        }
+
+        .health-content {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .health-text h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .health-text p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .checklist {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .checklist li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-main);
+        }
+
+        .checklist li::before {
+            content: "✔";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: #ecf0f1;
+            padding: 3rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-col a {
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        .footer-col a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.85rem;
+            color: #7f8c8d;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-inner {
+                flex-direction: column;
+                height: auto;
+                padding: 1rem;
+            }
+            nav ul {
+                margin: 1rem 0;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .grid-layout, .health-content {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-inner">
+            <a href="#" class="logo">
+                <span>◆</span> 解剖女人
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">骨骼系统</a></li>
+                    <li><a href="#">肌肉系统</a></li>
+                    <li><a href="#">生殖系统</a></li>
+                    <li><a href="#">健康科普</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button class="btn btn-outline">登录</button>
+                <button class="btn btn-primary">注册</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>探索人体奥秘，科学认知女性身体</h1>
+                <p>提供专业的女性人体解剖学图谱、生理结构解析及健康科普知识，帮助您建立科学、健康的身体观念。</p>
+                <div style="display: flex; gap: 1rem; justify-content: center;">
+                    <button class="btn btn-primary" style="padding: 0.8rem 2rem; font-size: 1rem;">开始探索</button>
+                    <button class="btn btn-outline" style="padding: 0.8rem 2rem; font-size: 1rem;">阅读指南</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="grid-layout">
+                <!-- Main Content -->
+                <div class="main-content">
+                    <h2 class="section-title">热门解剖结构解析</h2>
+                    
+                    <div class="anatomy-grid">
+                        <!-- Card 1 -->
+                        <article class="anatomy-item">
+                            <div class="card-img-wrapper">
+                                <img src="https://picsum.photos/seed/bone1/400/300" alt="女性骨盆结构示意图">
+                            </div>
+                            <div class="anatomy-overlay">
+                                <h3>女性骨盆结构</h3>
+                                <p>了解骨盆的解剖特征及其在生育与支撑中的作用。</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 2 -->
+                        <article class="anatomy-item">
+                            <div class="card-img-wrapper">
+                                <img src="https://picsum.photos/seed/muscle2/400/300" alt="深层肌肉群解剖">
+                            </div>
+                            <div class="anatomy-overlay">
+                                <h3>深层肌肉群</h3>
+                                <p>核心肌群与深层肌肉的解剖位置与功能分析。</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 3 -->
+                        <article class="anatomy-item">
+                            <div class="card-img-wrapper">
+                                <img src="https://picsum.photos/seed/organ3/400/300" alt="生殖器官示意图">
+                            </div>
+                            <div class="anatomy-overlay">
+                                <h3>生殖系统解剖</h3>
+                                <p>女性内生殖器与外生殖器的构造详解。</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 4 -->
+                        <article class="anatomy-item">
+                            <div class="card-img-wrapper">
+                                <img src="https://picsum.photos/seed/heart4/400/300" alt="循环系统与血管">
+                            </div>
+                            <div class="anatomy-overlay">
+                                <h3>循环系统</h3>
+                                <p>女性心血管系统的解剖特点与生理循环。</p>
+                            </div>
+                        </article>
+                    </div>
+
+                    <h2 class="section-title" style="margin-top: 3rem;">最新科普文章</h2>
+                    
+                    <div class="card">
+                        <span class="card-tag">生理健康</span>
+                        <h3>了解月经周期的生理机制</h3>
+                        <p>月经周期是女性生殖系统功能正常的标志，涉及下丘脑-垂体-卵巢轴的复杂调节。本文将详细解析卵泡期、排卵期、黄体期及月经期的生理变化。</p>
+                        <a href="#" style="color: var(--accent-color); font-weight: 500;">阅读更多 →</a>
+                    </div>
+
+                    <div class="card">
+                        <span class="card-tag">运动解剖</span>
+                        <h3>女性跑步时的肌肉发力分析</h3>
+                        <p>由于骨盆结构与男性不同，女性在跑步时臀部肌肉的激活模式存在差异。本文通过解剖图解，介绍如何通过针对性训练提升跑步效率与预防损伤。</p>
+                        <a href="#" style="color: var(--accent-color); font-weight: 500;">阅读更多 →</a>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <div class="sidebar-widget">
+                        <h3>分类导航</h3>
+                        <ul class="list-group">
+                            <li><a href="#">骨骼与关节 <span>12</span></a></li>
+                            <li><a href="#">肌肉系统 <span>8</span></a></li>
+                            <li><a href="#">内脏器官 <span>6</span></a></li>
+                            <li><a href="#">神经系统 <span>5</span></a></li>
+                            <li><a href="#">循环系统 <span>4</span></a></li>
+                            <li><a href="#">内分泌系统 <span>3</span></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <h3>热门图谱</h3>
+                        <ul class="list-group">
+                            <li><a href="#">女性全身骨骼图 <span>Top 1</span></a></li>
+                            <li><a href="#">盆底肌群示意图 <span>Top 2</span></a></li>
+                            <li><a href="#">乳腺解剖结构 <span>Top 3</span></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-widget" style="background-color: #e8f4fd; border: 1px solid #d6eaf8;">
+                        <h3 style="color: var(--primary-color);">健康提示</h3>
+                        <p style="font-size: 0.9rem; color: #555; margin-bottom: 0.5rem;">定期进行妇科检查对于维护女性生殖健康至关重要。</p>
+                        <a href="#" class="btn btn-primary" style="width: 100%; text-align: center; font-size: 0.85rem;">预约咨询</a>
+                    </div>
+                </aside>
+            </div>
+        </div>
+
+        <!-- Health Education Section -->
+        <section class="health-section">
+            <div class="health-content">
+                <div class="health-text">
+                    <h2>科学认知，打破误区</h2>
+                    <p>对于女性身体，尤其是生殖系统，往往存在许多误解和迷思。科学的解剖学知识是建立自信、保持健康的第一步。</p>
+                    <p>我们致力于提供准确、客观、无医学偏见的内容，涵盖从青春期发育到更年期变化的各个阶段。</p>
+                    <ul class="checklist">
+                        <li>基于权威医学文献的科普内容</li>
+                        <li>高清人体解剖图谱与3D模型参考</li>
+                        <li>专业的运动康复与生理健康建议</li>
+                        <li>隐私保护与尊重的阅读体验</li>
+                    </ul>
+                </div>
+                <div class="health-image">
+                    <img src="https://picsum.photos/seed/health/600/400" alt="女性健康生活图解" style="border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>解剖女人</h4>
+                <p style="color: #bdc3c7; font-size: 0.9rem; line-height: 1.6;">
+                    专注于女性人体结构与生理健康的专业科普平台。通过科学的视角，帮助每一位女性更好地了解自己的身体。
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>内容板块</h4>
+                <ul>
+                    <li><a href="#">骨骼解剖</a></li>
+                    <li><a href="#">肌肉图谱</a></li>
+                    <li><a href="#">生殖健康</a></li>
+                    <li><a href="#">运动解剖</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>关于我们</h4>
+                <ul>
+                    <li><a href="#">网站简介</a></li>
+                    <li><a href="#">内容团队</a></li>
+                    <li><a href="#">免责声明</a></li>
+                    <li><a href="#">隐私政策</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>联系方式</h4>
+                <ul>
+                    <li><a href="#">投稿合作</a></li>
+                    <li><a href="#">意见反馈</a></li>
+                    <li><a href="#">客服中心</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 解剖女人. All Rights Reserved. 本站内容仅供科普参考，不作为医疗诊断依据。</p>
+        </div>
+    </footer>
+
+</body>
+</html>
