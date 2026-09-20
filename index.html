@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="玩转NBA - 专业篮球资讯与数据分析平台。提供最新NBA比赛赛程、实时战报、球员数据统计、球队战术解析及季后赛前瞻，助您全方位掌握NBA赛场动态。">
+    <meta name="keywords" content="玩转NBA,NBA资讯,NBA数据,篮球战术,NBA赛程,NBA比赛结果">
+    <title>玩转NBA - 深度赛况分析与球员数据指南</title>
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --accent-color: #f97316;
+            --accent-hover: #ea580c;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --spacing-unit: 1rem;
+            --container-width: 1200px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Header & Nav */
+        header {
+            background-color: var(--card-bg);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 var(--spacing-unit);
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .btn-outline {
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+            border: 1px solid var(--accent-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1e293b 100%);
+            color: white;
+            padding: 4rem 1rem;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-text p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-item h3 {
+            font-size: 2rem;
+            color: var(--accent-color);
+        }
+
+        .stat-item p {
+            font-size: 0.9rem;
+            margin: 0;
+            color: #cbd5e1;
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            display: block;
+        }
+
+        /* Main Layout */
+        .main-container {
+            max-width: var(--container-width);
+            margin: 2rem auto;
+            padding: 0 var(--spacing-unit);
+            display: grid;
+            grid-template-columns: 2.5fr 1fr;
+            gap: 2rem;
+        }
+
+        /* Section Styles */
+        section {
+            margin-bottom: 3rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.6rem;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+
+        .section-more {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        /* Live Games Card */
+        .live-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .game-team {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .team-logo {
+            width: 48px;
+            height: 48px;
+            background-color: #f1f5f9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        .team-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .team-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .score-box {
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .score {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .game-status {
+            font-size: 0.85rem;
+            color: var(--accent-color);
+            font-weight: 600;
+            background-color: #fff7ed;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        /* Articles Grid */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .article-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid var(--border-color);
+        }
+
+        .article-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-image {
+            height: 180px;
+            background-color: #e2e8f0;
+            position: relative;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-category {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .card-content {
+            padding: 1.25rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+            color: var(--text-main);
+        }
+
+        .card-excerpt {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        /* Sidebar */
+        .sidebar-widget {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .widget-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .rank-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .rank-list li:last-child {
+            border-bottom: none;
+        }
+
+        .rank-num {
+            width: 24px;
+            height: 24px;
+            background-color: #f1f5f9;
+            color: var(--text-secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .rank-num.top-3 {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .rank-info h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .rank-info span {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Guide Section */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .guide-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .guide-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .guide-item h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .guide-item p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: #94a3b8;
+            padding: 4rem 1rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand h2 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            max-width: 300px;
+        }
+
+        .footer-col h3 {
+            color: white;
+            margin-bottom: 1.25rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-col a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text p {
+                margin: 0 auto 2rem;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+                height: auto;
+                padding: 1rem;
+            }
+
+            nav {
+                width: 100%;
+                margin-top: 1rem;
+                overflow-x: auto;
+            }
+
+            nav ul {
+                gap: 1rem;
+                padding-bottom: 0.5rem;
+            }
+
+            .header-actions {
+                width: 100%;
+                justify-content: center;
+                margin-top: 1rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">玩转<span>NBA</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">首页</a></li>
+                    <li><a href="#">赛程赛果</a></li>
+                    <li><a href="#">球员数据</a></li>
+                    <li><a href="#">战术分析</a></li>
+                    <li><a href="#">NBA视频</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button class="btn btn-outline">登录</button>
+                <button class="btn btn-primary">注册</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>深入赛场，掌握每一分</h1>
+                    <p>无论您是资深球迷还是新晋观赛者，这里提供最全面的NBA赛事资讯、实时数据与深度战术解析，助您真正玩转NBA。</p>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: inherit;">
+                        <button class="btn btn-primary" style="padding: 0.8rem 1.5rem;">查看赛程</button>
+                        <button class="btn btn-outline" style="padding: 0.8rem 1.5rem; border-color: rgba(255,255,255,0.3); color: white;">观看集锦</button>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <h3>82</h3>
+                            <p>常规赛轮次</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>30</h3>
+                            <p>参赛球队</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>5</h3>
+                            <p>西部/东部</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <!-- Placeholder image representing basketball action -->
+                    <img src="https://picsum.photos/seed/nbahero/600/400" alt="NBA篮球比赛现场">
+                </div>
+            </div>
+        </section>
+
+        <div class="main-container">
+            <!-- Left Content -->
+            <div class="content-area">
+                
+                <!-- Live Games -->
+                <section>
+                    <div class="section-header">
+                        <h2 class="section-title">实时战况</h2>
+                        <a href="#" class="section-more">查看全部 &rarr;</a>
+                    </div>
+                    
+                    <div class="live-card">
+                        <div class="game-team">
+                            <div class="team-logo">LAL</div>
+                            <div class="team-info">
+                                <span class="team-name">洛杉矶湖人</span>
+                                <span>主场作战</span>
+                            </div>
+                        </div>
+                        <div class="score-box">
+                            <div class="score">112</div>
+                            <span class="game-status">进行中 Q4</span>
+                        </div>
+                        <div class="game-team" style="justify-content: flex-end;">
+                            <div class="team-info" style="align-items: flex-end; text-align: right;">
+                                <span class="team-name">金州勇士</span>
+                                <span>客场</span>
+                            </div>
+                            <div class="team-logo">GSW</div>
+                        </div>
+                    </div>
+
+                    <div class="live-card">
+                        <div class="game-team">
+                            <div class="team-logo">BOS</div>
+                            <div class="team-info">
+                                <span class="team-name">波士顿凯尔特人</span>
+                                <span>主场作战</span>
+                            </div>
+                        </div>
+                        <div class="score-box">
+                            <div class="score">98</div>
+                            <span class="game-status">已结束</span>
+                        </div>
+                        <div class="game-team" style="justify-content: flex-end;">
+                            <div class="team-info" style="align-items: flex-end; text-align: right;">
+                                <span class="team-name">迈阿密热火</span>
+                                <span>客场</span>
+                            </div>
+                            <div class="team-logo">MIA</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Latest News -->
+                <section>
+                    <div class="section-header">
+                        <h2 class="section-title">深度解析</h2>
+                        <a href="#" class="section-more">更多文章 &rarr;</a>
+                    </div>
+                    <div class="articles-grid">
+                        <article class="article-card">
+                            <div class="card-image">
+                                <img src="https://picsum.photos/seed/nba1/400/300" alt="球员特写">
+                                <span class="card-category">球员分析</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title"><a href="#">新赛季MVP竞争格局分析：谁才是最强竞争者？</a></h3>
+                                <p class="card-excerpt">随着赛季深入，几位核心球员的数据表现令人瞩目。本文将从效率值、关键时刻表现及带队战绩三个维度进行深度剖析。</p>
+                                <div class="card-meta">
+                                    <span>2023-10-25</span>
+                                    <span>阅读 2.4w</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="article-card">
+                            <div class="card-image">
+                                <img src="https://picsum.photos/seed/nba2/400/300" alt="战术板">
+                                <span class="card-category">战术研究</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title"><a href="#">小球时代的终结？空间型内线的回归与防守策略</a></h3>
+                                <p class="card-excerpt">传统中锋在空间拉开上的作用重新被重视，现代篮球如何平衡进攻空间与内线护框？</p>
+                                <div class="card-meta">
+                                    <span>2023-10-24</span>
+                                    <span>阅读 1.8w</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="article-card">
+                            <div class="card-image">
+                                <img src="https://picsum.photos/seed/nba3/400/300" alt="交易市场">
+                                <span class="card-category">转会动态</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title"><a href="#">交易截止日前后的球队补强策略解读</a></h3>
+                                <p class="card-excerpt">哪些球队在交易市场上动作频频？这些引援如何改变季后赛的版图？</p>
+                                <div class="card-meta">
+                                    <span>2023-10-23</span>
+                                    <span>阅读 3.1w</span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- How to Guide -->
+                <section>
+                    <div class="section-header">
+                        <h2 class="section-title">新手指南</h2>
+                    </div>
+                    <div class="guide-grid">
+                        <div class="guide-item">
+                            <span class="guide-icon">🏀</span>
+                            <h4>规则入门</h4>
+                            <p>了解篮球基本规则、犯规种类与判罚标准。</p>
+                        </div>
+                        <div class="guide-item">
+                            <span class="guide-icon">📊</span>
+                            <h4>数据解读</h4>
+                            <p>掌握PER效率值、TS%等核心指标的含义。</p>
+                        </div>
+                        <div class="guide-item">
+                            <span class="guide-icon">🏆</span>
+                            <h4>历史荣耀</h4>
+                            <p>浏览NBA历史总冠军与传奇球星档案。</p>
+                        </div>
+                        <div class="guide-item">
+                            <span class="guide-icon">📺</span>
+                            <h4>观赛渠道</h4>
+                            <p>官方直播平台与转播信号介绍。</p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">赛季排名</h3>
+                    <ul class="rank-list">
+                        <li>
+                            <div class="rank-num top-3">1</div>
+                            <div class="rank-info">
+                                <h4>丹佛掘金</h4>
+                                <span>西部第一</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="rank-num top-3">2</div>
+                            <div class="rank-info">
+                                <h4>俄克拉荷马雷霆</h4>
+                                <span>西部第二</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="rank-num top-3">3</div>
+                            <div class="rank-info">
+                                <h4>明尼苏达森林狼</h4>
+                                <span>西部第三</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="rank-num">4</div>
+                            <div class="rank-info">
+                                <h4>达拉斯独行侠</h4>
+                                <span>西部第四</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="rank-num">5</div>
+                            <div class="rank-info">
+                                <h4>洛杉矶快船</h4>
+                                <span>西部第五</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">热门话题</h3>
+                    <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                        <a href="#" style="font-size: 0.95rem; font-weight: 500; display: flex; justify-content: space-between;">
+                            <span>全明星赛投票开启</span>
+                            <span style="background:#f1f5f9; padding:2px 6px; border-radius:4px; font-size:0.8rem;">热</span>
+                        </a>
+                        <a href="#" style="font-size: 0.95rem; font-weight: 500; display: flex; justify-content: space-between;">
+                            <span>交易截止日模拟</span>
+                            <span style="background:#f1f5f9; padding:2px 6px; border-radius:4px; font-size:0.8rem;">新</span>
+                        </a>
+                        <a href="#" style="font-size: 0.95rem; font-weight: 500; display: flex; justify-content: space-between;">
+                            <span>历史得分王之争</span>
+                        </a>
+                        <a href="#" style="font-size: 0.95rem; font-weight: 500; display: flex; justify-content: space-between;">
+                            <span>最佳防守阵容</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="sidebar-widget" style="background: linear-gradient(135deg, #1e293b, #0f172a); color: white;">
+                    <h3 class="widget-title" style="border-color: rgba(255,255,255,0.2);">订阅周刊</h3>
+                    <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 1rem;">每周获取最硬核的篮球干货，不错过任何精彩瞬间。</p>
+                    <input type="email" placeholder="输入您的邮箱" style="width: 100%; padding: 0.6rem; border-radius: 4px; border: none; margin-bottom: 0.5rem;">
+                    <button class="btn btn-primary" style="width: 100%; font-size: 0.9rem;">立即订阅</button>
+                </div>
+
+            </aside>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h2>玩转NBA</h2>
+                <p>致力于为篮球爱好者提供最专业、最及时、最有趣的NBA资讯平台。从数据统计到战术复盘，我们陪伴您见证每一个精彩瞬间。</p>
+            </div>
+            <div class="footer-col">
+                <h3>快速导航</h3>
+                <ul>
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">赛程表</a></li>
+                    <li><a href="#">球员数据库</a></li>
+                    <li><a href="#">球队资料</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>内容分类</h3>
+                <ul>
+                    <li><a href="#">比赛集锦</a></li>
+                    <li><a href="#">深度报道</a></li>
+                    <li><a href="#">球员交易</a></li>
+                    <li><a href="#">历史回顾</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>关于我们</h3>
+                <ul>
+                    <li><a href="#">网站简介</a></li>
+                    <li><a href="#">联系方式</a></li>
+                    <li><a href="#">免责声明</a></li>
+                    <li><a href="#">隐私政策</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 玩转NBA. All Rights Reserved. 本站内容仅供娱乐参考，非官方平台。</p>
+        </div>
+    </footer>
+
+</body>
+                              </html>
